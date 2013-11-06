@@ -34,5 +34,3 @@ for (( value=0; value<LIMIT; value++ )) do
   echo "mogrify -resize ${coef}% ${new_image_name}"
 
 done
-
-echo program
