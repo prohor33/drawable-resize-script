@@ -28,7 +28,6 @@ LIMIT=5
 for (( value=0; value<LIMIT; value++ )) do
 
   coef=$(bc <<< "scale=0; 100*${coef_map[value]}/${inp_coef}")
-  echo "${coef}"
   new_image_name=${image_name}_${sizes_map[value]}.png
   cp ${image_name}.png ${new_image_name}
   mogrify -resize ${coef}% ${new_image_name}
