@@ -1,0 +1,22 @@
+#!/bin/bash
+
+image_name=${1%.*}
+path=$2
+
+#image_name=fb
+#path=~/code/app-teka-test/
+
+ext_map=( l m h xh xxh )
+
+LIMIT=4
+for (( value=0 ; value<LIMIT; value++ )) do
+
+  image_full_name=${image_name}_${ext_map[${value}]}.png
+
+  full_path=${path}res/drawable-${ext_map[${value}]}dpi/${image_name}.png
+
+  echo "mv" "${image_full_name}" "${full_path}"
+
+  mv ${image_full_name} ${full_path}
+
+done

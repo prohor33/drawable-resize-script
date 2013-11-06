@@ -1,0 +1,39 @@
+#!/bin/bash
+
+image_name=${1%.*}
+size=$2
+
+sizes_map=( l m h xh xxh )
+coef_map=( 0.375 0.5 0.75 1.0 1.5 )
+
+res_value=-1
+for (( value=0; value<5; value++ )) do
+
+  if [[ "${sizes_map[value]}" = "${size}" ]]
+  then
+    res_value=${value}
+  fi
+
+done
+
+if [[ "$res_value" -eq -1 ]]
+then
+  echo "wrong arguments, please use \"l, m, h, xh, xxh\""
+  exit 0
+fi
+
+inp_coef=${coef_map[res_value]}
+
+LIMIT=5
+for (( value=0; value<LIMIT; value++ )) do
+
+  coef=$(bc <<< "scale=0; 100*${coef_map[value]}/${inp_coef}")
+  echo "${coef}"
+  new_image_name=${image_name}_${sizes_map[value]}.png
+  cp ${image_name}.png ${new_image_name}
+  mogrify -resize ${coef}% ${new_image_name}
+  echo "mogrify -resize ${coef}% ${new_image_name}"
+
+done
+
+echo program
